@@ -111,6 +111,7 @@ name = "sorting_statistics"
 version = "0.1.0"
 dependencies = [
  "csv",
+ "fastrand",
  "sorting-algorithm",
  "strum",
  "strum_macros",

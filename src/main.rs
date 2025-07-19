@@ -1,6 +1,8 @@
 use sorting_algorithm::*;
 use strum_macros::EnumIter;
 
+mod data_generator;
+
 #[derive(EnumIter)]
 enum Algorithm {
     BubbleSort,
