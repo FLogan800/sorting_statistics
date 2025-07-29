@@ -1,5 +1,4 @@
-use core::num;
-use std::time::Instant;
+use std::{error::Error, time::Instant};
 
 use sorting_algorithm::*;
 use strum::IntoEnumIterator;
@@ -29,8 +28,16 @@ enum DistributionType {
     NearlySorted,
 }
 
-fn main() {
-    let num_iterations = 10;
+fn main() -> Result<(), Box<dyn Error>> {
+    let mut wtr = csv::Writer::from_path("sorting_statistics.csv")?;
+    wtr.write_record(&[
+        "Algorithm",
+        "Distribution Type",
+        "n",
+        "Time Elapsed (Seconds)",
+    ])?;
+
+    let num_iterations = 100;
 
     let slow_algorithms = [
         Algorithm::Bubble,
@@ -41,11 +48,20 @@ fn main() {
         Algorithm::Shell,
     ];
 
-    let data_sizes = [10, 100, 1_000, 10_000, 100_000, 1_000_000, 10_000_000, 100_000_000];
+    let data_sizes = [
+        10,
+        100,
+        1_000,
+        10_000,
+        100_000,
+        1_000_000,
+        10_000_000,
+        100_000_000,
+    ];
 
-    for _ in 0..num_iterations {
-        for n in data_sizes {
-            for distribution in DistributionType::iter() {
+    for n in data_sizes {
+        for distribution in DistributionType::iter() {
+            for _ in 0..num_iterations {
                 let data = data_generator::generate_data(&distribution, n);
 
                 for algorithm in Algorithm::iter() {
@@ -59,10 +75,20 @@ fn main() {
                     let time_elapsed = start.elapsed().as_secs_f64();
 
                     println!("{}, {}, {n}, {time_elapsed}", &algorithm, &distribution);
+                    wtr.write_record(&[
+                        algorithm.to_string(),
+                        distribution.to_string(),
+                        n.to_string(),
+                        time_elapsed.to_string(),
+                    ])?;
                 }
             }
         }
+        wtr.flush()?;
     }
+
+
+    Ok(())
 }
 
 fn run_algorithm<T: Ord + Clone>(mut data: &mut [T], algorithm: &Algorithm) {
