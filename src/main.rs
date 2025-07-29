@@ -75,6 +75,11 @@ fn main() -> Result<(), Box<dyn Error>> {
                     let time_elapsed = start.elapsed().as_secs_f64();
 
                     println!("{}, {}, {n}, {time_elapsed}", &algorithm, &distribution);
+                    
+                    if !data_clone.is_sorted() {
+                        panic!("Data not sorted with {} {} {n}", &algorithm, &distribution);
+                    }
+
                     wtr.write_record(&[
                         algorithm.to_string(),
                         distribution.to_string(),
