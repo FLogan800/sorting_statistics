@@ -1,9 +1,7 @@
-use std::iter::repeat_with;
-
 use crate::DistributionType;
 use fastrand;
 
-pub fn generate_data(distribution_type: DistributionType, n: usize) -> Vec<u32> {
+pub fn generate_data(distribution_type: &DistributionType, n: usize) -> Vec<u32> {
     match distribution_type {
         DistributionType::Random => generate_random(n),
         DistributionType::Reversed => generate_reversed(n),
