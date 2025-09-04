@@ -12,6 +12,7 @@ enum Algorithm {
     CocktailShaker,
     Comb,
     Gnome,
+    Heap,
     Insertion,
     Merge,
     Quick,
@@ -75,7 +76,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                     let time_elapsed = start.elapsed().as_secs_f64();
 
                     println!("{}, {}, {n}, {time_elapsed}", &algorithm, &distribution);
-                    
+
                     if !data_clone.is_sorted() {
                         panic!("Data not sorted with {} {} {n}", &algorithm, &distribution);
                     }
@@ -92,7 +93,6 @@ fn main() -> Result<(), Box<dyn Error>> {
         wtr.flush()?;
     }
 
-
     Ok(())
 }
 
@@ -102,6 +102,7 @@ fn run_algorithm<T: Ord + Clone>(mut data: &mut [T], algorithm: &Algorithm) {
         Algorithm::CocktailShaker => cocktail_shaker_sort::sort(&mut data),
         Algorithm::Comb => comb_sort::sort(&mut data),
         Algorithm::Gnome => gnome_sort::sort(&mut data),
+        Algorithm::Heap => heap_sort::sort(&mut data),
         Algorithm::Insertion => insertion_sort::sort(&mut data),
         Algorithm::Merge => merge_sort::sort(&mut data),
         Algorithm::Quick => quick_sort::sort(&mut data),
