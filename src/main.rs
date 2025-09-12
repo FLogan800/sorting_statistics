@@ -1,6 +1,6 @@
 use std::{error::Error, time::Instant};
 
-use sorting_algorithm::{bogo_sort::sort, *};
+use sorting_algorithm::*;
 use strum::IntoEnumIterator;
 use strum_macros::{Display, EnumIter};
 
