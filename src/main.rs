@@ -1,6 +1,6 @@
 use std::{error::Error, time::Instant};
 
-use sorting_algorithm::*;
+use sorting_algorithm::{bogo_sort::sort, *};
 use strum::IntoEnumIterator;
 use strum_macros::{Display, EnumIter};
 
@@ -18,6 +18,7 @@ enum Algorithm {
     Quick,
     Selection,
     Shell,
+    Sort, // Rust's built in sorting algorithm
 }
 
 #[derive(EnumIter, Display)]
@@ -108,5 +109,6 @@ fn run_algorithm<T: Ord + Clone>(mut data: &mut [T], algorithm: &Algorithm) {
         Algorithm::Quick => quick_sort::sort(&mut data),
         Algorithm::Selection => selection_sort::sort(&mut data),
         Algorithm::Shell => shell_sort::sort(&mut data),
+        Algorithm::Sort => data.sort(),
     }
 }
