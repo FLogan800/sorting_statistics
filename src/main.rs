@@ -11,6 +11,7 @@ enum Algorithm {
     Bubble,
     CocktailShaker,
     Comb,
+    Exchange,
     Gnome,
     Heap,
     Insertion,
@@ -43,6 +44,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let slow_algorithms = [
         Algorithm::Bubble,
+        Algorithm::Exchange,
         Algorithm::Gnome,
         Algorithm::CocktailShaker,
         Algorithm::Insertion,
@@ -102,6 +104,7 @@ fn run_algorithm<T: Ord + Clone>(mut data: &mut [T], algorithm: &Algorithm) {
         Algorithm::Bubble => bubble_sort::sort(&mut data),
         Algorithm::CocktailShaker => cocktail_shaker_sort::sort(&mut data),
         Algorithm::Comb => comb_sort::sort(&mut data),
+        Algorithm::Exchange => exchange_sort::sort(&mut data),
         Algorithm::Gnome => gnome_sort::sort(&mut data),
         Algorithm::Heap => heap_sort::sort(&mut data),
         Algorithm::Insertion => insertion_sort::sort(&mut data),
