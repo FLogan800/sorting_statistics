@@ -69,7 +69,7 @@ fn main() -> Result<(), Box<dyn Error>> {
                 let data = data_generator::generate_data(&distribution, n);
 
                 for algorithm in Algorithm::iter() {
-                    if slow_algorithms.contains(&algorithm) && n >= 1_000_000 {
+                    if slow_algorithms.contains(&algorithm) && n >= 100_000 {
                         continue;
                     }
                     let mut data_clone = data.clone();
